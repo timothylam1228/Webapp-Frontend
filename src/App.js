@@ -6,8 +6,8 @@ import Route from './containers/Routes';
 function App() {
   return (
     <div>
-    <TopNav />
-    <Route />
+      <TopNav />
+      <Route />
     </div>
   );
 }
