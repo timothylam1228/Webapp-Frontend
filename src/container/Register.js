@@ -1,9 +1,14 @@
 import './App.css';
 import TopNav from './components/topnav/topnav';
-function App() {
+
+
+function Register() {
   return (
+    <div>
     <TopNav />
+    <h1>Register Page</h1>
+    </div>
   );
 }
 
-export default App;
+export default Register;
