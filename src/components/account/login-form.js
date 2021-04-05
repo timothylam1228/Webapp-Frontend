@@ -13,12 +13,13 @@ import Button from 'react-bootstrap/Button';
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-          Login Form          </Modal.Title>
+          Login          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
          <h1>Login Form</h1>
         </Modal.Body>
         <Modal.Footer>
+          <Button onClick={props.onHide}>Login</Button>
           <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
