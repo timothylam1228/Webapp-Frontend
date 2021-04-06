@@ -1,16 +1,32 @@
 
-import React from 'react';
+import React,{useState} from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "../../containers/Home";
-import Register from "../../containers/Register";
-
 import LoginForm from '../account/login-form';
+import RegisterForm from '../account/register-form';
+
 export default function TopNav() {
-  const [modalShow, setModalShow] = React.useState(false);
-  
+  const [modalLoginShow, setModalLoginShow] = React.useState(false);
+  const [modalRegisterShow, setModalRegisterShow] = React.useState(false);
+
+  const handleShowModalOne = () => {
+    setModalLoginShow(true);
+   }
+   
+   const handleShowModalTwo = () => {
+    setModalRegisterShow(true);
+   }
+   
+   const handleClose = () => {
+    setModalLoginShow(false);
+    setModalRegisterShow(false);
+   }
+
+
+
   return (
     <div>
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -24,12 +40,16 @@ export default function TopNav() {
         </Nav>
         <Nav className="ml-auto">
 
-          <Nav.Link onClick={() => setModalShow(true)}>Login</Nav.Link>
-          <Nav.Link href="/register">Register</Nav.Link>
+          <Nav.Link onClick={() => handleShowModalOne()}>Login</Nav.Link>
+          <Nav.Link onClick={() => handleShowModalTwo()}>Register</Nav.Link>
 
           <LoginForm
-            show={modalShow}
-            onHide={() => setModalShow(false)}
+            show={modalLoginShow}
+            onHide={() => handleClose()}
+          />
+           <RegisterForm
+            show={modalRegisterShow}
+            onHide={() => handleClose()}
           />
 
           {/* 
