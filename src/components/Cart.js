@@ -20,7 +20,6 @@ function Cart(props) {
         (
             props.items.map(item => {
                 return (
-
                     <li className="collection-item avatar" key={item.id}>
                         <div className="item-img">
                             <img src={item.img} alt={item.img} className="" />
@@ -62,7 +61,7 @@ function Cart(props) {
 }
 
 
-function mapStateToProps(state) {
+const mapStateToProps = (state)=> {
     return { items: state.addedItems }
 }
 const mapDispatchToProps = (dispatch)=>{
