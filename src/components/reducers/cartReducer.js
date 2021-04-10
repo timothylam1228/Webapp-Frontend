@@ -6,7 +6,6 @@ import Item5 from '../../assets/items/images/item5.png'
 import Item6 from '../../assets/items/images/item6.png'
 import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING } from '../actions/action-types/cart-actions'
 
-
 const initState = {
     items: [
         { id: 1, title: 'Money 7', desc: "Animal", price: 110, img: Item1 },
@@ -21,7 +20,9 @@ const initState = {
 
 }
 const cartReducer = (state = initState, action) => {
+
     console.log(action.type);
+
     if (action.type === ADD_TO_CART) {
         let addedItem = state.items.find(item => item.id === action.id)
         //check if the action id exists in the addedItems
@@ -37,12 +38,12 @@ const cartReducer = (state = initState, action) => {
             addedItem.quantity = 1;
             //calculating the total
             let newTotal = state.total + addedItem.price
+            console.log("newTotal",addedItem);
             return {
                 ...state,
                 addedItems: [...state.addedItems, addedItem],
-                total: newTotal
+                total: newTotal,
             }
-
         }
     }
     if (action.type === REMOVE_ITEM) {
@@ -97,12 +98,7 @@ const cartReducer = (state = initState, action) => {
         }
     }
 
-    if (action.type === 'SUB_SHIPPING') {
-        return {
-            ...state,
-            total: state.total - 6
-        }
-    } else {
+    else {
 
         return state
 

@@ -1,21 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { removeItem,addQuantity,subtractQuantity} from './actions/cartActions'
+import { removeItem, addQuantity, subtractQuantity } from './actions/cartActions'
 
+function mapStateToProps (state){
+    console.log(state);
+    return{
+        items: state.addedItems,
+        total: state.total
+        }
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        removeItem: (id) => { dispatch(removeItem(id)) },
+        addQuantity: (id) => { dispatch(addQuantity(id)) },
+        subtractQuantity: (id) => { dispatch(subtractQuantity(id)) }
+    }
+}
 function Cart(props) {
-    const handleRemove =(id)=>{
+
+    const handleRemove = (id) => {
         props.removeItem(id);
     }
-    const handleAddQuantity = (id) =>{
+    const handleAddQuantity = (id) => {
         props.addQuantity(id);
 
     }
-    const handleSubtractQuantity = (id)=>{
+    const handleSubtractQuantity = (id) => {
         props.subtractQuantity(id);
-
     }
-    console.log("length",props.items.length );
+    console.log("length",props );
     let addedItems = props.items.length ?
         (
             props.items.map(item => {
@@ -33,9 +47,9 @@ function Cart(props) {
                                 <b>Quantity: {item.quantity}</b>
                             </p>
                             <div className="add-remove">
-                                            <Link to="/cart"><i className="material-icons" onClick={()=>{handleAddQuantity(item.id)}}>arrow_drop_up</i></Link>
-                                            <Link to="/cart"><i className="material-icons" onClick={()=>{handleSubtractQuantity(item.id)}}>arrow_drop_down</i></Link>
-                                        </div>
+                                <Link to="/cart"><i className="material-icons" onClick={() => { handleAddQuantity(item.id) }}>arrow_drop_up</i></Link>
+                                <Link to="/cart"><i className="material-icons" onClick={() => { handleSubtractQuantity(item.id) }}>arrow_drop_down</i></Link>
+                            </div>
                             <button className="waves-effect waves-light btn pink remove">Remove</button>
                         </div>
 
@@ -61,15 +75,6 @@ function Cart(props) {
 }
 
 
-const mapStateToProps = (state)=> {
-    return { items: state.addedItems }
-}
-const mapDispatchToProps = (dispatch)=>{
-    return{
-        removeItem: (id)=>{dispatch(removeItem(id))},
-        addQuantity: (id)=>{dispatch(addQuantity(id))},
-        subtractQuantity: (id)=>{dispatch(subtractQuantity(id))}
-    }
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(Cart)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

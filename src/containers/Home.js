@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, Component } from 'react';
 import { connect } from 'react-redux';
 import { addToCart } from '../components/actions/cartActions';
 import 'materialize-css/dist/css/materialize.min.css';
@@ -9,7 +9,7 @@ import 'material-icons/iconfont/material-icons.css'
 
 function Home(props) {
 
-  const handleClick = (id) =>{
+  const handleClick = (id) => {
     console.log("add button click");
     props.addToCart(id);
   }
@@ -32,20 +32,22 @@ function Home(props) {
   return (
 
     <div className="container">
-      <div className ="box">
-      {itemList}
+      <div className="box">
+        {itemList}
       </div>
     </div>
 
 
   );
 }
-function mapStateToProps(state) { 
+function mapStateToProps(state) {
+  console.log(state);
+
   return { items: state.items };
 }
 
 function mapDispatchToProps(dispatch) {
-  return { addToCart: (id) => { dispatch(addToCart(id)) } };
+  return { addToCart: (id) => { dispatch(addToCart(id)) } }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
