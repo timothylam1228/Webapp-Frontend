@@ -39,7 +39,7 @@ export default function TopNav() {
           <Nav.Link href="/food">Food</Nav.Link>
         </Nav>
         <Nav className="ml-auto">
-          <Nav.Link href="/cart">My cart</Nav.Link>
+          <Link to="/cart">My cart</Link>
 
           <Nav.Link onClick={() => handleShowModalOne()}>Login</Nav.Link>
           <Nav.Link onClick={() => handleShowModalTwo()}>Register</Nav.Link>
