@@ -1,6 +1,5 @@
 import './App.css';
 import React from 'react';
-
 import TopNav from './components/topnav/topnav';
 import Route from './containers/Routes';
 import { createStore } from 'redux';
@@ -27,6 +26,7 @@ function App() {
     <TopNav />
     <Route />
     <p>{!data ? "Loading..." : data}</p>
+    {/* <Provider store={store}><App /></Provider> */}
     </div>
   );
 }

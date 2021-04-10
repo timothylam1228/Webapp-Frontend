@@ -6,47 +6,57 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { connect } from 'react-redux';
+import { addToCart } from '../components/actions/cartActions'
 
 
+function handleClick(id) {
+  this.props.addToCart(id);
+}
 
 function mapStateToProps(state) {
   return { items: state.items }
 }
+const mapDispatchToProps = (dispatch) => {
 
-function Home() {
-  let itemList = this.props.items.map(item => {
+  return {
+    addToCart: (id) => { dispatch(addToCart(id)) }
+  }
+}
+
+function Home(props) {
+  let itemList = props.items.map(item => {
     return (
       <div className="card" key={item.id}>
         <div className="card-image">
           <img src={item.img} alt={item.title} />
           <span className="card-title">{item.title}</span>
-          <span to="/" className="btn-floating halfway-fab waves-effect waves-light red"><i className="material-icons">add</i></span>
-                        </div >
-    <div className="card-content">
-      <p>{item.desc}</p>
-      <p><b>Price: {item.price}$</b></p>
-    </div>
-                 </div >
+          <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" onClick={() => { this.handleClick(item.id) }}><i className="material-icons">add</i></span>
+        </div >
+        <div className="card-content">
+          <p>{item.desc}</p>
+          <p><b>Price: {item.price}$</b></p>
+        </div>
+      </div >
     )
-})
+  })
 
 
-return (
-  <div className="homeImage">
-    <Container>
-      <Row>
-        <Col>
-          <h1>Banner</h1>
-          <Img
-            src={logo} /></Col>
-      </Row>
-      <div className="box">
-        {itemList}
-      </div>
-    </Container>
+  return (
+    <div className="homeImage">
+      <Container>
+        <Row>
+          <Col>
+            <h1>Banner</h1>
+            <Img
+              src={logo} /></Col>
+        </Row>
+        <div className="box">
+          {itemList}
+        </div>
+      </Container>
 
-  </div>
-);
+    </div>
+  );
 }
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps,mapDispatchToProps)(Home)
