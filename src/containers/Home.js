@@ -50,4 +50,6 @@ function mapDispatchToProps(dispatch) {
   return { addToCart: (id) => { dispatch(addToCart(id)) } }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+
+export default (connect(mapStateToProps, mapDispatchToProps)(Home))
+
