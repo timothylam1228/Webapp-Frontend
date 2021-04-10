@@ -1,10 +1,12 @@
 import './App.css';
 import React from 'react';
 import TopNav from './components/topnav/topnav';
-import Route from './containers/Routes';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import cartReducer from './components/reducers/cartReducer';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Home from '../src/containers/Home';
+import Cart from '../src/components/Cart';
 
 
 function App() {
@@ -20,14 +22,18 @@ function App() {
 
   // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
 
-  
+
   return (
-    <div>
-    <TopNav />
-    <Route />
-    <p>{!data ? "Loading..." : data}</p>
-    {/* <Provider store={store}><App /></Provider> */}
-    </div>
+    <BrowserRouter>
+      <div className="App">
+
+        <TopNav />
+        <Switch>
+          <Route exact path="/home" component={Home} />
+          <Route path="/cart" component={Cart} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 

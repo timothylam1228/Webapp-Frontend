@@ -6,16 +6,16 @@ useEffect(() => {
     // Update the document title using the browser API
     document.title = `You clicked ${count} times`;
   });
-function handleChecked(e){
+function handleChecked(e,props){
     if(e.target.checked){
-        this.props.addShipping();
+        props.addShipping();
     }
     else{
-        this.props.substractShipping();
+        props.substractShipping();
     }
 }
 
-function Recipe(){
+function Recipe(props){
 
     return(
         <div className="container">
@@ -26,7 +26,7 @@ function Recipe(){
                             <span>Shipping(+6$)</span>
                         </label>
                     </li>
-                    <li className="collection-item"><b>Total: {this.props.total} $</b></li>
+                    <li className="collection-item"><b>Total: {props.total} $</b></li>
                 </div>
                 <div className="checkout">
                     <button className="waves-effect waves-light btn">Checkout</button>
