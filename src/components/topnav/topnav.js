@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "../../containers/Home";
 import LoginForm from '../account/login-form';
@@ -39,7 +40,7 @@ export default function TopNav() {
           <Nav.Link href="/food">Food</Nav.Link>
         </Nav>
         <Nav className="ml-auto">
-          <Link to="/cart">My cart</Link>
+          <Nav.Link as={Link} to="/cart">My cart</Nav.Link>
 
           <Nav.Link onClick={() => handleShowModalOne()}>Login</Nav.Link>
           <Nav.Link onClick={() => handleShowModalTwo()}>Register</Nav.Link>
