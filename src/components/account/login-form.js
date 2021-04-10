@@ -2,12 +2,25 @@
 import React, {useState }from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Form from "react-bootstrap/Form";
-
 import Button from 'react-bootstrap/Button';
+// Firebase App (the core Firebase SDK) is always required and
+// must be listed before other Firebase SDKs
+
+// Add the Firebase products that you want to use
+
 
   export default function LoginForm(props){
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loginForm, setloginForm] = useState({
+      countryCode: "852",
+      phoneNumber: "",
+      password: "",
+    })
+
+    const [validationStatus, setValidationStatus] = useState(false);
+
     function validateForm() {
       return email.length > 0 && password.length > 0;
     }
@@ -17,6 +30,9 @@ import Button from 'react-bootstrap/Button';
     }
 
       return(
+  
+    // my app code
+
         <Modal
         {...props}
         size="lg"
