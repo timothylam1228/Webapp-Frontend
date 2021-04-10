@@ -1,28 +1,32 @@
-import React, { Component } from 'react'
+import React, { Component ,useEffect} from 'react'
 import { connect } from 'react-redux'
 //import { addShipping } from './actions/cartActions'
 
-useEffect(() => {
-    // Update the document title using the browser API
-    document.title = `You clicked ${count} times`;
-  });
-function handleChecked(e,props){
-    if(e.target.checked){
-        props.addShipping();
-    }
-    else{
-        props.substractShipping();
-    }
-}
+
+
 
 function Recipe(props){
+    useEffect(() => {
+        // Update the document title using the browser API
+        if(this.refs.shipping.checked)
+        props.substractShipping();
+      });
+
+      const handleChecked = (e) =>{
+        if(e.target.checked){
+            props.addShipping();
+        }
+        else{
+            props.substractShipping();
+        }
+    }
 
     return(
         <div className="container">
             <div className="collection">
                 <li className="collection-item">
                         <label>
-                            <input type="checkbox" ref="shipping" onChange= {this.handleChecked} />
+                            <input type="checkbox" ref="shipping" onChange= {handleChecked} />
                             <span>Shipping(+6$)</span>
                         </label>
                     </li>
