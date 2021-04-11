@@ -3,11 +3,12 @@ import React, { useState, useEffect} from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
-export default function RegisterForm(props) {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setconfirmPassword] = useState("");
+
+export default function RegisterForm(props) {
+  const axios = require('axios').default;
+
+  
   const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
   const [regForm, setregForm] = useState({
     name:"",
@@ -17,7 +18,6 @@ export default function RegisterForm(props) {
   });
 
   const [validationStatus,setValidationStatus] = useState(false);
-
   useEffect(()=>{
     const status = 
       regForm.name && 
@@ -29,18 +29,19 @@ export default function RegisterForm(props) {
     setValidationStatus(status);
   },[regForm]);
 
-  function validateForm() {
-    const {name , email , password, confirmPassword } = regForm;
-    //////Want api check user exist
-    if( email.length < 0 || password.length < 0){
-      return false;
-    }if(password != confirmPassword){
-      return false;
-    }
-  }
-
   function handleSubmit(event) {
-    console.log(regForm.email);
+    console.log('123');
+    axios.post('http://localhost:3000/dev/users/create', {
+      name: regForm.name,
+      email: regForm.email,
+      password: regForm.password
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   const  handleChange = (e) =>{
@@ -64,8 +65,8 @@ export default function RegisterForm(props) {
       </Modal.Header>
       <Modal.Body>
 
-        <Form onSubmit={handleSubmit}>
-          <Form.Group size="lg" >
+        <Form onSubmit={handleSubmit} method="POST">
+          <Form.Group size="lg">
             <Form.Label>Email</Form.Label>
             <Form.Control
               autoFocus
@@ -112,7 +113,7 @@ export default function RegisterForm(props) {
               onChange={(e) => handleChange(e)}
             />
           </Form.Group>
-          <Button block size="lg" type="submit" disabled={!validationStatus}>
+          <Button block size="lg" disabled={!validationStatus} onClick={()=>handleSubmit()}>
             Register
         </Button>
         </Form>
