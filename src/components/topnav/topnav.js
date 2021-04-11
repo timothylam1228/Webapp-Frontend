@@ -31,13 +31,13 @@ export default function TopNav() {
   return (
 
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Navbar.Brand href="/home">Pet City</Navbar.Brand>
+      <Navbar.Brand  as={Link} to="/home">Pet City</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
 
         <Nav className="mr-auto">
-          <Nav.Link href="/pet">Pet</Nav.Link>
-          <Nav.Link href="/food">Food</Nav.Link>
+          <Nav.Link as={Link} to="/pet">Pet</Nav.Link>
+          <Nav.Link as={Link} to="/food">Food</Nav.Link>
         </Nav>
         <Nav className="ml-auto">
           <Nav.Link as={Link} to="/cart">My cart</Nav.Link>
@@ -45,7 +45,7 @@ export default function TopNav() {
           <Nav.Link onClick={() => handleShowModalOne()}>Login</Nav.Link>
           <Nav.Link onClick={() => handleShowModalTwo()}>Register</Nav.Link>
 
-          <Nav.Link href="/accont">Account</Nav.Link>
+          <Nav.Link as={Link} to="/accont">Account</Nav.Link>
 
         </Nav>
         <LoginForm show={modalLoginShow} onHide={() => handleClose()} />
