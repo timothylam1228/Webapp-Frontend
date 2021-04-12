@@ -32,6 +32,7 @@ function Cart(props) {
     const handleSubtractQuantity = (id) => {
         props.subtractQuantity(id);
     }
+    
 
 
     console.log("length", props);

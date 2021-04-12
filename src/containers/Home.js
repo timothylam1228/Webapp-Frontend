@@ -1,6 +1,7 @@
 import React, { Suspense, Component ,useEffect,useState} from 'react';
 import { connect } from 'react-redux';
 import { addToCart } from '../components/actions/cartActions';
+import { Alert,Button } from 'react-bootstrap';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize';
 import 'material-icons/iconfont/material-icons.css'
@@ -10,7 +11,7 @@ import 'material-icons/iconfont/material-icons.css'
 function Home(props) {
   const [isLogin, setIsLogin] = React.useState(false);
 
-
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
@@ -21,14 +22,14 @@ function Home(props) {
   }, []);
 
   const handleClick = (id) => {
-    console.log("add button click");
-
     props.addToCart(id);
   }
 
   const loginAlert = () => {
     alert("Please login before add item to cart");
   }
+
+
 
   let itemList = props.items.map(item => {
     return (
