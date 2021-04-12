@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { removeItem, addQuantity, subtractQuantity } from './actions/cartActions'
+import Recipe from './Recipe'
 
-function mapStateToProps (state){
+
+function mapStateToProps(state) {
     console.log(state);
-    return{
+    return {
         items: state.addedItems,
         total: state.total
-        }
+    }
 }
 function mapDispatchToProps(dispatch) {
     return {
@@ -18,6 +20,7 @@ function mapDispatchToProps(dispatch) {
     }
 }
 function Cart(props) {
+    const axios = require('axios').default;
 
     const handleRemove = (id) => {
         props.removeItem(id);
@@ -29,7 +32,9 @@ function Cart(props) {
     const handleSubtractQuantity = (id) => {
         props.subtractQuantity(id);
     }
-    console.log("length",props );
+
+
+    console.log("length", props);
     let addedItems = props.items.length ?
         (
             props.items.map(item => {
@@ -70,6 +75,8 @@ function Cart(props) {
                     {addedItems}
                 </ul>
             </div>
+    
+    <Recipe />   
         </div>
     )
 }
