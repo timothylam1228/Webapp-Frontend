@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
@@ -8,26 +8,26 @@ import Button from 'react-bootstrap/Button';
 export default function RegisterForm(props) {
   const axios = require('axios').default;
 
-  
+
   const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
   const [regForm, setregForm] = useState({
-    name:"",
-    email:"",
-    password:"",
-    confirmPassword:"",
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
-  const [validationStatus,setValidationStatus] = useState(false);
-  useEffect(()=>{
-    const status = 
-      regForm.name && 
-      regForm.name.length >=6 &&
+  const [validationStatus, setValidationStatus] = useState(false);
+  useEffect(() => {
+    const status =
+      regForm.name &&
+      regForm.name.length >= 6 &&
       regForm.email &&
       regForm.email.indexOf("@") > 0 &&
       strongRegex.test(regForm.password) &&
       regForm.confirmPassword === regForm.password;
     setValidationStatus(status);
-  },[regForm]);
+  }, [regForm]);
 
   function handleSubmit(event) {
     console.log('123');
@@ -36,22 +36,28 @@ export default function RegisterForm(props) {
       email: regForm.email,
       password: regForm.password
     })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        if (response.data.message == "Registered") {
+          alert("Registration success!")
+        } else if (response.data.message == "Used") {
+          alert("This account has been used!")
+        }
+
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
-  const  handleChange = (e) =>{
+  const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
-    setregForm({...regForm, [name]:value});
+    setregForm({ ...regForm, [name]: value });
   }
 
   return (
-   
+
     <Modal
       {...props}
       size="lg"
@@ -72,7 +78,7 @@ export default function RegisterForm(props) {
               autoFocus
               type="email"
               name="email"
-              id = "email"
+              id="email"
               value={regForm.email}
               onChange={(e) => handleChange(e)}
             />
@@ -102,7 +108,7 @@ export default function RegisterForm(props) {
             />
           </Form.Group>
 
-          
+
           <Form.Group size="lg" >
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
@@ -113,7 +119,7 @@ export default function RegisterForm(props) {
               onChange={(e) => handleChange(e)}
             />
           </Form.Group>
-          <Button block size="lg" disabled={!validationStatus} onClick={()=>handleSubmit()}>
+          <Button block size="lg" disabled={!validationStatus} onClick={() => handleSubmit()}>
             Register
         </Button>
         </Form>

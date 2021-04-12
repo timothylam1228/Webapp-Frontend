@@ -37,7 +37,7 @@ const cartReducer = (state = initState, action) => {
             addedItem.quantity = 1;
             //calculating the total
             let newTotal = state.total + addedItem.price
-            console.log("newTotal",addedItem);
+            console.log("newTotal", addedItem);
             return {
                 ...state,
                 addedItems: [...state.addedItems, addedItem],
