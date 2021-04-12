@@ -5,12 +5,11 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from '../src/containers/Home';
 import Cart from '../src/components/Cart';
 
-
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <TopNav />
+      <TopNav/>
         <Switch>
           <Route exact path="/home" component={Home} />
           <Route path="/cart" component={Cart} />

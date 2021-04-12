@@ -1,4 +1,4 @@
-import React, { Suspense, Component } from 'react';
+import React, { Suspense, Component ,useEffect,useState} from 'react';
 import { connect } from 'react-redux';
 import { addToCart } from '../components/actions/cartActions';
 import 'materialize-css/dist/css/materialize.min.css';
@@ -8,10 +8,26 @@ import 'material-icons/iconfont/material-icons.css'
 
 
 function Home(props) {
+  const [isLogin, setIsLogin] = React.useState(false);
+
+
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    console.log(loggedInUser)
+    if (loggedInUser) {
+      setIsLogin(true);
+    }
+  }, []);
 
   const handleClick = (id) => {
     console.log("add button click");
+
     props.addToCart(id);
+  }
+
+  const loginAlert = () => {
+    alert("Please login before add item to cart");
   }
 
   let itemList = props.items.map(item => {
@@ -20,7 +36,10 @@ function Home(props) {
         <div className="card-image">
           <img src={item.img} alt={item.title} />
           <span className="card-title">{item.title}</span>
-          <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" onClick={() => { handleClick(item.id) }}><i className="material-icons">add</i></span>
+          {isLogin?  <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" onClick={() => { handleClick(item.id) }}><i className="material-icons">add</i></span> :
+           <span to="/" className="btn-floating halfway-fab grey" onClick={()=>{loginAlert()}}><i className="material-icons">add</i></span>
+          }
+         
         </div >
         <div className="card-content">
           <p>{item.desc}</p>

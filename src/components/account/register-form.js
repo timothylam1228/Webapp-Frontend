@@ -37,9 +37,9 @@ export default function RegisterForm(props) {
       password: regForm.password
     })
       .then(function (response) {
-        if (response.data.message == "Registered") {
+        if (response.data.message === "Registered") {
           alert("Registration success!")
-        } else if (response.data.message == "Used") {
+        } else if (response.data.message === "Used") {
           alert("This account has been used!")
         }
 
