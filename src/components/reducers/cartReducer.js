@@ -6,6 +6,12 @@ import Item5 from '../../assets/items/images/item5.png'
 import Item6 from '../../assets/items/images/item6.png'
 import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING } from '../actions/action-types/cart-actions'
 
+
+
+
+
+
+
 const initState = {
     items: [
         { id: 1, title: 'Money 7', desc: "Animal", price: 110, img: Item1 },

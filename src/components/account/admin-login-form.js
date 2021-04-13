@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router"
-import jwt_decode from "jwt-decode";
 
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
@@ -13,46 +12,32 @@ import jwt_decode from "jwt-decode";
 // Add the Firebase products that you want to use
 
 
-export default function LoginForm(props) {
+export default function AdminloginForm(props) {
   const axios = require('axios').default;
   const bcrypt = require('bcryptjs');
-  const [user, setUser] = useState();
+  const [admin, setAdmin] = useState();
   let history = useHistory()
 
-  const [loginForm, setloginForm] = useState({
-    email: "",
+  const [AdminloginForm, setAdminloginForm] = useState({
+    username: "",
     password: "",
   })
 
-  const [validationStatus, setValidationStatus] = useState(false);
-
-  useEffect(() => {
-    const status =
-      loginForm.email &&
-      loginForm.email.indexOf("@") > 0;
-    setValidationStatus(status);
-  }, [loginForm]);
-
+  const [validationStatus, setValidationStatus] = useState(true);
 
 
   function handleSubmit(event) {
-    // console.log(loginForm.email)
-    // console.log(loginForm.password)
-    axios.post('http://localhost:3000/dev/users/login', {
-      email: loginForm.email,
-      password: loginForm.password
+
+    axios.post('http://localhost:3000/dev/admin/login', {
+      username: AdminloginForm.username,
+      password: AdminloginForm.password
     })
       .then(function (response) {
         if (response.data.message == "Sucess") {
           alert("Login success!");
           props.onHide();
-          console.log(response.data.body)
-          var token = response.data.body.token;
-          var decoded = jwt_decode(token);
-          console.log("decoded",decoded)
-          localStorage.setItem('token', response.data.body.token)
-          window.location.reload();
-          // return <Redirect to='/home'/>
+          localStorage.setItem('token',response.data.body.token)
+            window.location.reload();
         } else if (response.data.message == "Account Not Existed") {
           alert("This account is not existed")
         } else {
@@ -68,7 +53,7 @@ export default function LoginForm(props) {
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
-    setloginForm({ ...loginForm, [name]: value });
+    setAdminloginForm({ ...AdminloginForm, [name]: value });
   }
 
   return (
@@ -83,19 +68,19 @@ export default function LoginForm(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Login          </Modal.Title>
+          Admin Login          </Modal.Title>
       </Modal.Header>
       <Modal.Body>
 
         <Form onSubmit={handleSubmit} method="POST">
           <Form.Group size="lg" >
-            <Form.Label>Email</Form.Label>
+            <Form.Label>Username</Form.Label>
             <Form.Control
               autoFocus
-              name="email"
-              type="email"
-              id="email"
-              value={loginForm.email}
+              name="username"
+              type="username"
+              id="username"
+              value={AdminloginForm.username}
               onChange={(e) => handleChange(e)}
             />
           </Form.Group>
@@ -106,7 +91,7 @@ export default function LoginForm(props) {
               name="password"
               type="password"
               id="password"
-              value={loginForm.password}
+              value={AdminloginForm.password}
               onChange={(e) => handleChange(e)}
             />
           </Form.Group>

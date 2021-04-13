@@ -5,6 +5,7 @@ import { Alert,Button } from 'react-bootstrap';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize';
 import 'material-icons/iconfont/material-icons.css'
+import jwt_decode from "jwt-decode";
 
 
 
@@ -14,10 +15,13 @@ function Home(props) {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    console.log(loggedInUser)
-    if (loggedInUser) {
-      setIsLogin(true);
+    const loggedInUser = localStorage.getItem("token");
+     if(loggedInUser){
+     var decoded = jwt_decode(loggedInUser);
+     if (decoded.type == "user"){
+       console.log(decoded)
+        setIsLogin(true);
+     }
     }
   }, []);
 
