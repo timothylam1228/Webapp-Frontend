@@ -5,16 +5,14 @@ import Item4 from '../../assets/items/images/item4.png'
 import Item5 from '../../assets/items/images/item5.png'
 import Item6 from '../../assets/items/images/item6.png'
 import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING } from '../actions/action-types/cart-actions'
+import {useEffect,useState} from 'react';
 
 
+const axios = require('axios').default;
 
-
-
-
-
-const initState = {
+const initState2 = {
     items: [
-        { id: 1, title: 'Money 7', desc: "Animal", price: 110, img: Item1 },
+        { id: 1, title: 'Money 7', desc: "Animal", price: 9999910, img: Item1 },
         { id: 2, title: 'Money 7', desc: "Animal2", price: 80, img: Item2 },
         { id: 3, title: 'Money 7', desc: "Animal3", price: 120, img: Item3 },
         { id: 4, title: 'Money 7', desc: "Animal4", price: 260, img: Item4 },
@@ -24,10 +22,31 @@ const initState = {
     addedItems: [],
     total: 0
 }
+
+const initState = {
+
+    items: [
+        callList()
+    ],
+    addedItems: [],
+    total: 0
+}
+
+
+
+async function callList  ()  {
+    axios.get('http://localhost:3000/dev/get_item')
+    .then(function (response) {
+      return response.data.body
+    });
+}
+
 const cartReducer = (state = initState, action) => {
+    const listitems = callList();
 
-    console.log(action.type);
-
+    console.log( 'asd',listitems)
+    
+    // state.items.push( { id: 1, title: 'Money 7', desc: "Animal", price: 9999910, img: Item1 })
     if (action.type === ADD_TO_CART) {
         let addedItem = state.items.find(item => item.id === action.id)
         //check if the action id exists in the addedItems

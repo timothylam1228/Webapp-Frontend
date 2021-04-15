@@ -55,13 +55,16 @@ function Home(props) {
       <div style={{ backgroundImage: `url(${Background})`, backgroundRepeat: 'Repeat', width: '100%', height: '100vh', color: 'black', justifyContent:'center', display:'flex',alignItems:'center'}} >   
         <div style={{fontSize:'60px',   backgroundColor: 'white'}}>Welcome to Pet City</div>   
         </div>
-
+        <div id="Food" className="Food" style={{background: "linear-gradient(white, #D3E8EC)", width:'100%', height:'30vh',justifyContent:'center', display:'flex',alignItems:'center'}}>
+        <div style={{fontSize:'60px'}}> Pet Food </div> 
+        </div>
+        <div style={{backgroundColor:'#D3E8EC'}} >
       <div className="container">
-
         <div className="box">
           {itemList}
         </div>
         </div>  
+        </div>
     </>
 
 

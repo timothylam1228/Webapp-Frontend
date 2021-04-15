@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
-import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router"
 
 // Firebase App (the core Firebase SDK) is always required and
@@ -14,8 +13,6 @@ import { useHistory } from "react-router"
 
 export default function AdminloginForm(props) {
   const axios = require('axios').default;
-  const bcrypt = require('bcryptjs');
-  const [admin, setAdmin] = useState();
   let history = useHistory()
 
   const [AdminloginForm, setAdminloginForm] = useState({
