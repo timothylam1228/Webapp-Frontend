@@ -45,7 +45,7 @@ export default function TopNav() {
       <>
         <Nav className="mr-auto">
         <Nav.Link as={Link}  to="/editpet">Item </Nav.Link>
-        <Nav.Link  href="/home" onClick={()=>signOut()}>Logout</Nav.Link>
+        <Nav.Link  href="/" onClick={()=>signOut()}>Logout</Nav.Link>
         </Nav>
         </>
     )
@@ -54,7 +54,7 @@ export default function TopNav() {
   const UserNav = () => {
      return(
       <>
-        <Nav className="mr-auto">
+        <Nav className="mr-auto"  variant="light">
         <Nav.Link as={Link} to="/pet">Pet</Nav.Link>
         <Nav.Link as={Link} to="/food">Food</Nav.Link>
         </Nav>
@@ -62,7 +62,7 @@ export default function TopNav() {
            {isLogin ? 
           <>
           <Nav.Link as={Link} to="/cart">My cart</Nav.Link>
-          <Nav.Link  href="/home" onClick={()=>signOut()}>Logout</Nav.Link>
+          <Nav.Link  href="/" onClick={()=>signOut()}>Logout</Nav.Link>
           <Nav.Link as={Link} to="/accont">{userName}</Nav.Link>
             </>
             :
@@ -97,8 +97,8 @@ export default function TopNav() {
     }
   }, []);
   return (
-     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Navbar.Brand  as={Link} to="/home">Pet City</Navbar.Brand>
+     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+      <Navbar.Brand  as={Link} to="/">Pet City</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
    

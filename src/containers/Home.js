@@ -1,13 +1,12 @@
-import React, { Suspense, Component ,useEffect,useState} from 'react';
+import React, { Suspense, Component, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { addToCart } from '../components/actions/cartActions';
-import { Alert,Button } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize';
 import 'material-icons/iconfont/material-icons.css'
 import jwt_decode from "jwt-decode";
-
-
+import Background from '../assets/background.png'
 
 function Home(props) {
   const [isLogin, setIsLogin] = React.useState(false);
@@ -16,12 +15,12 @@ function Home(props) {
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("token");
-     if(loggedInUser){
-     var decoded = jwt_decode(loggedInUser);
-     if (decoded.type == "user"){
-       console.log(decoded)
+    if (loggedInUser) {
+      var decoded = jwt_decode(loggedInUser);
+      if (decoded.type == "user") {
+        console.log(decoded)
         setIsLogin(true);
-     }
+      }
     }
   }, []);
 
@@ -33,18 +32,16 @@ function Home(props) {
     alert("Please login before add item to cart");
   }
 
-
-
   let itemList = props.items.map(item => {
     return (
       <div className="card" key={item.id}>
         <div className="card-image">
-          <img src={item.img} alt={item.title} />
+          <img style={{   minHeight: "300px" , maxHeight:"300px"}}src={item.img} alt={item.title} />
           <span className="card-title">{item.title}</span>
-          {isLogin?  <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" onClick={() => { handleClick(item.id) }}><i className="material-icons">add</i></span> :
-           <span to="/" className="btn-floating halfway-fab grey" onClick={()=>{loginAlert()}}><i className="material-icons">add</i></span>
+          {isLogin ? <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" onClick={() => { handleClick(item.id) }}><i className="material-icons">add</i></span> :
+            <span to="/" className="btn-floating halfway-fab grey" onClick={() => { loginAlert() }}><i className="material-icons">add</i></span>
           }
-         
+
         </div >
         <div className="card-content">
           <p>{item.desc}</p>
@@ -54,12 +51,18 @@ function Home(props) {
     )
   })
   return (
+    <>
+      <div style={{ backgroundImage: `url(${Background})`, backgroundRepeat: 'Repeat', width: '100%', height: '100vh', color: 'black', justifyContent:'center', display:'flex',alignItems:'center'}} >   
+        <div style={{fontSize:'60px',   backgroundColor: 'white'}}>Welcome to Pet City</div>   
+        </div>
 
-    <div className="container">
-      <div className="box">
-        {itemList}
-      </div>
-    </div>
+      <div className="container">
+
+        <div className="box">
+          {itemList}
+        </div>
+        </div>  
+    </>
 
 
   );
@@ -72,6 +75,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return { addToCart: (id) => { dispatch(addToCart(id)) } }
+}
+
+const styles = {
+	fullHeightCard: {
+		height: "100%",
+	},
 }
 
 
