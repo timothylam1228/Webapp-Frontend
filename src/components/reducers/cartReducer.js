@@ -4,7 +4,7 @@ import Item3 from '../../assets/items/images/item3.png'
 import Item4 from '../../assets/items/images/item4.png'
 import Item5 from '../../assets/items/images/item5.png'
 import Item6 from '../../assets/items/images/item6.png'
-import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING } from '../actions/action-types/cart-actions'
+import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING,GET_ITEM } from '../actions/action-types/cart-actions'
 import { useEffect, useState } from 'react';
 
 
@@ -23,31 +23,53 @@ const initState2 = {
     total: 0
 }
 async function callList() {
-    const promise = axios.get('http://localhost:3000/dev/get_item')
-    const dataPromise = promise.then((response) => response.data.body)
-    return dataPromise
-    // .then(response => {
-    //         return (response.data.body)
-    //     });
+    
 }
 
-const initState = {
 
-    items: [
-        callList()],
+const initSta2te = {
+
+    items: [],
     addedItems: [],
     total: 0
 }
 
+const initState = (() => {
+
+     // cam
+
+    var items = [
+        { id: 5, title: 'Money 7', desc: "Animal5", price: 160, img: Item5 },
+        { id: 6, title: 'Money 7', desc: "Animal6", price: 90, img: Item6 }
+    ];
+
+    axios.get('http://localhost:3000/dev/get_item')
+    .then(response => {
+        items.push(  { id: 322, title: 'Money 7', desc: "12321321", price: 90, img: Item6 })
+
+            return (response.data.body)
+        });
+    items.push(  { id: 342, title: 'Money 7', desc: "12321321", price: 90, img: Item6 })
+    const total = 0;
+    const addedItems = []
+    return {items, total,addedItems}
+})()
+
+const sendGetRequest = async (initState) => {
+    try {
+        const resp = await axios.get('http://localhost:3000/dev/get_item');
+        console.log(resp.data.body);
+        initState.items.push(  { id: 342, title: 'Money 7', desc: "12321321", price: 90, img: Item6 }) // cam
+    } catch (err) {
+        // Handle Error Here
+        console.error(err);
+    }
+};
 
 
 
-
-const cartReducer = (state = initState, action) => {
-    const listitems = callList();
-    console.log("list", listitems);
-
-    // state.items.push( { id: 1, title: 'Money 7', desc: "Animal", price: 9999910, img: Item1 })
+const cartReducer = (state = (initState), action, ) => {
+        console.log('state',state)
     if (action.type === ADD_TO_CART) {
         let addedItem = state.items.find(item => item.id === action.id)
         //check if the action id exists in the addedItems
@@ -124,12 +146,9 @@ const cartReducer = (state = initState, action) => {
     }
 
     else {
-
+     
         return state
-
     }
-
-
 
 }
 export default cartReducer;

@@ -49,7 +49,7 @@ export default function LoginForm(props) {
           console.log(response.data.body)
           var token = response.data.body.token;
           var decoded = jwt_decode(token);
-          console.log("decoded",decoded)
+          console.log("decoded", decoded)
           localStorage.setItem('token', response.data.body.token)
           window.location.reload();
           // return <Redirect to='/home'/>
@@ -80,13 +80,13 @@ export default function LoginForm(props) {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      style={{maxHeight:"100%", background:'none'}}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Login          </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-
         <Form onSubmit={handleSubmit} method="POST">
           <Form.Group size="lg" >
             <Form.Label>Email</Form.Label>
