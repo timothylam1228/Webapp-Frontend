@@ -5,7 +5,7 @@ import Item4 from '../../assets/items/images/item4.png'
 import Item5 from '../../assets/items/images/item5.png'
 import Item6 from '../../assets/items/images/item6.png'
 import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING } from '../actions/action-types/cart-actions'
-import {useEffect,useState} from 'react';
+import { useEffect, useState } from 'react';
 
 
 const axios = require('axios').default;
@@ -22,30 +22,31 @@ const initState2 = {
     addedItems: [],
     total: 0
 }
+async function callList() {
+    const promise = axios.get('http://localhost:3000/dev/get_item')
+    const dataPromise = promise.then((response) => response.data.body)
+    return dataPromise
+    // .then(response => {
+    //         return (response.data.body)
+    //     });
+}
 
 const initState = {
 
     items: [
-        callList()
-    ],
+        callList()],
     addedItems: [],
     total: 0
 }
 
 
 
-async function callList  ()  {
-    axios.get('http://localhost:3000/dev/get_item')
-    .then(function (response) {
-      return response.data.body
-    });
-}
+
 
 const cartReducer = (state = initState, action) => {
     const listitems = callList();
+    console.log("list", listitems);
 
-    console.log( 'asd',listitems)
-    
     // state.items.push( { id: 1, title: 'Money 7', desc: "Animal", price: 9999910, img: Item1 })
     if (action.type === ADD_TO_CART) {
         let addedItem = state.items.find(item => item.id === action.id)

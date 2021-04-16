@@ -22,7 +22,7 @@ function Recipe(props) {
 
         // Call your backend to create the Checkout Session
         // const response = await fetch('/dev/create-checkout-session', { method: 'POST' });
-        axios.post('http://localhost:3000/dev/create-checkout-session')
+        axios.post('http://localhost:3000/dev/create_checkout_session')
             .then(function (response) { console.log(response) });
 
         // const session = await response.json();
@@ -45,7 +45,7 @@ function Recipe(props) {
                 <li className="collection-item"><b>Total: {props.total} $</b></li>
             </div>
             <div className="checkout">
-                <button className="waves-effect waves-light btn"  onClick={() => { handleClick() }}>Checkout</button>
+                <button className="waves-effect waves-light btn" onClick={() => { handleClick() }}>Checkout</button>
             </div>
         </div>
     )
