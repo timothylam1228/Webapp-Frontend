@@ -20,7 +20,6 @@ function mapDispatchToProps(dispatch) {
     }
 }
 function Cart(props) {
-    const axios = require('axios').default;
 
     const handleRemove = (id) => {
         props.removeItem(id);
@@ -33,10 +32,8 @@ function Cart(props) {
         props.subtractQuantity(id);
     }
     
-
-
-    console.log("length", props);
-    let addedItems = props.items.length ?
+    console.log('length',props)
+    let addedItems = props.items ?
         (
             props.items.map(item => {
                 return (

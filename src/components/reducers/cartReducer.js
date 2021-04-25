@@ -4,7 +4,7 @@ import Item3 from '../../assets/items/images/item3.png'
 import Item4 from '../../assets/items/images/item4.png'
 import Item5 from '../../assets/items/images/item5.png'
 import Item6 from '../../assets/items/images/item6.png'
-import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING,GET_ITEM } from '../actions/action-types/cart-actions'
+import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING,GET_ITEM ,FETCH_POSTS_SUCCESS} from '../actions/action-types/cart-actions'
 import { useEffect, useState } from 'react';
 
 
@@ -22,56 +22,15 @@ const initState2 = {
     addedItems: [],
     total: 0
 }
-async function callList() {
-    
-}
 
-
-const initSta2te = {
-
-    items: [],
-    addedItems: [],
-    total: 0
-}
-
-const initState = (() => {
-
-     // cam
-
-    var items = [
-        { id: 5, title: 'Money 7', desc: "Animal5", price: 160, img: Item5 },
-        { id: 6, title: 'Money 7', desc: "Animal6", price: 90, img: Item6 }
-    ];
-
-    axios.get('http://localhost:3000/dev/get_item')
-    .then(response => {
-        items.push(  { id: 322, title: 'Money 7', desc: "12321321", price: 90, img: Item6 })
-
-            return (response.data.body)
-        });
-    items.push(  { id: 342, title: 'Money 7', desc: "12321321", price: 90, img: Item6 })
-    const total = 0;
-    const addedItems = []
-    return {items, total,addedItems}
-})()
-
-const sendGetRequest = async (initState) => {
-    try {
-        const resp = await axios.get('http://localhost:3000/dev/get_item');
-        console.log(resp.data.body);
-        initState.items.push(  { id: 342, title: 'Money 7', desc: "12321321", price: 90, img: Item6 }) // cam
-    } catch (err) {
-        // Handle Error Here
-        console.error(err);
+const cartReducer = (state = [] , action ) => {
+    console.log('state',state);
+    if(action.type === FETCH_POSTS_SUCCESS){
+        return action.payload.body
     }
-};
-
-
-
-const cartReducer = (state = (initState), action, ) => {
-        console.log('state',state)
     if (action.type === ADD_TO_CART) {
-        let addedItem = state.items.find(item => item.id === action.id)
+        console.log('load state',state.body);
+        let addedItem = state.items.body.find(item => item.id === action.id)
         //check if the action id exists in the addedItems
         let existed_item = state.addedItems.find(item => action.id === item.id)
         if (existed_item) {
@@ -108,7 +67,8 @@ const cartReducer = (state = (initState), action, ) => {
     }
     //INSIDE CART COMPONENT
     if (action.type === ADD_QUANTITY) {
-        let addedItem = state.items.find(item => item.id === action.id)
+        console.log('state',state);
+        let addedItem = state.body.find(item => item.id === action.id)
         addedItem.quantity += 1
         let newTotal = state.total + addedItem.price
         return {

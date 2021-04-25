@@ -9,8 +9,9 @@ import jwt_decode from "jwt-decode";
 import Background from '../assets/background.png'
 
 function Home(props) {
+  console.log(props.items)
   const [isLogin, setIsLogin] = React.useState(false);
-
+  const [items, setItems] = useState(); 
   const [show, setShow] = useState(true);
 
   useEffect(() => {
@@ -32,12 +33,16 @@ function Home(props) {
     alert("Please login before add item to cart");
   }
 
-  let itemList = props.items.map(item => {
+  if (props.items == null) {
+    return (<h1>LOADING ITEMS....</h1>)
+  }
+  console.log('props.items',props.items.body)
+  let itemList = props.items.body.map(item => {
     return (
-      <div className="card" key={item.id}>
+      <div className="card" key={item._id}>
         <div className="card-image">
-          <img style={{   minHeight: "300px" , maxHeight:"300px"}}src={item.img} alt={item.title} />
-          <span className="card-title">{item.title}</span>
+          <img style={{ minHeight: "300px", maxHeight: "300px" }} src={item.img} alt={item.title} />
+          <span className="card-title" style={{color:'black'}}>{item.title}</span>
           {isLogin ? <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" onClick={() => { handleClick(item.id) }}><i className="material-icons">add</i></span> :
             <span to="/" className="btn-floating halfway-fab grey" onClick={() => { loginAlert() }}><i className="material-icons">add</i></span>
           }
@@ -50,29 +55,29 @@ function Home(props) {
       </div >
     )
   })
+
   return (
     <>
-      <div style={{ backgroundImage: `url(${Background})`, backgroundRepeat: 'Repeat', width: '100%', height: '100vh', color: 'black', justifyContent:'center', display:'flex',alignItems:'center'}} >   
-        <div style={{fontSize:'60px',   backgroundColor: 'white'}}>Welcome to Pet City</div>   
+      <div style={{ backgroundImage: `url(${Background})`, backgroundRepeat: 'Repeat', width: '100%', height: '100vh', color: 'black', justifyContent: 'center', display: 'flex', alignItems: 'center' }} >
+        <div style={{ fontSize: '60px', backgroundColor: 'white' }}>Welcome to Pet City</div>
+      </div>
+      <div id="Food" className="Food" style={{ background: "linear-gradient(white, #D3E8EC)", width: '100%', height: '30vh', justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
+        <div style={{ fontSize: '60px' }}> Pet Food </div>
+      </div>
+      <div style={{ backgroundColor: '#D3E8EC' }} >
+        <div className="container">
+          <div className="box">
+            {itemList}
+          </div>
         </div>
-        <div id="Food" className="Food" style={{background: "linear-gradient(white, #D3E8EC)", width:'100%', height:'30vh',justifyContent:'center', display:'flex',alignItems:'center'}}>
-        <div style={{fontSize:'60px'}}> Pet Food </div> 
-        </div>
-        <div style={{backgroundColor:'#D3E8EC'}} >
-      <div className="container">
-        <div className="box">
-          {itemList}
-        </div>
-        </div>  
-        </div>
+      </div>
     </>
 
 
   );
 }
 function mapStateToProps(state) {
-  console.log(state);
-
+    console.log('state',state)
   return { items: state.items };
 }
 
@@ -81,9 +86,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 const styles = {
-	fullHeightCard: {
-		height: "100%",
-	},
+  fullHeightCard: {
+    height: "100%",
+  },
 }
 
 

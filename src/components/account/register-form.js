@@ -30,7 +30,6 @@ export default function RegisterForm(props) {
   }, [regForm]);
 
   function handleSubmit(event) {
-    console.log('123');
     axios.post('http://localhost:3000/dev/users/create', {
       name: regForm.name,
       email: regForm.email,
