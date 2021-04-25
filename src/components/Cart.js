@@ -37,7 +37,7 @@ function Cart(props) {
         (
             props.items.map(item => {
                 return (
-                    <li className="collection-item avatar" key={item.id}>
+                    <li className="collection-item avatar" key={item._id}>
                         <div className="item-img">
                             <img src={item.img} alt={item.img} className="" />
                         </div>
@@ -50,10 +50,10 @@ function Cart(props) {
                                 <b>Quantity: {item.quantity}</b>
                             </p>
                             <div className="add-remove">
-                                <Link to="/cart"><i className="material-icons" onClick={() => { handleAddQuantity(item.id) }}>arrow_drop_up</i></Link>
-                                <Link to="/cart"><i className="material-icons" onClick={() => { handleSubtractQuantity(item.id) }}>arrow_drop_down</i></Link>
+                                <Link to="/cart"><i className="material-icons" onClick={() => { handleAddQuantity(item._id) }}>arrow_drop_up</i></Link>
+                                <Link to="/cart"><i className="material-icons" onClick={() => { handleSubtractQuantity(item._id) }}>arrow_drop_down</i></Link>
                             </div>
-                            <button className="waves-effect waves-light btn pink remove">Remove</button>
+                            <button className="waves-effect waves-light btn pink remove" onClick={() => { handleRemove(item._id) }}>Remove</button>
                         </div>
 
                     </li>

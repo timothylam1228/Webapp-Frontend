@@ -26,6 +26,7 @@ function Home(props) {
   }, []);
 
   const handleClick = (id) => {
+    console.log('id',id);
     props.addToCart(id);
   }
 
@@ -43,7 +44,7 @@ function Home(props) {
         <div className="card-image">
           <img style={{ minHeight: "300px", maxHeight: "300px" }} src={item.img} alt={item.title} />
           <span className="card-title" style={{color:'black'}}>{item.title}</span>
-          {isLogin ? <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" onClick={() => { handleClick(item.id) }}><i className="material-icons">add</i></span> :
+          {isLogin ? <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" onClick={() => { handleClick(item._id) }}><i className="material-icons">add</i></span> :
             <span to="/" className="btn-floating halfway-fab grey" onClick={() => { loginAlert() }}><i className="material-icons">add</i></span>
           }
 
