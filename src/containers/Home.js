@@ -6,11 +6,13 @@ import 'materialize-css/dist/js/materialize';
 import 'material-icons/iconfont/material-icons.css'
 import jwt_decode from "jwt-decode";
 import Background from '../assets/background.png'
+import 'semantic-ui-css/semantic.min.css'
+import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
 
 function Home(props) {
   console.log(props.items)
   const [isLogin, setIsLogin] = React.useState(false);
-  const [items, setItems] = useState(); 
+  const [items, setItems] = useState();
   const [show, setShow] = useState(true);
 
   useEffect(() => {
@@ -25,7 +27,7 @@ function Home(props) {
   }, []);
 
   const handleClick = (id) => {
-    console.log('id',id);
+    console.log('id', id);
     props.addToCart(id);
   }
 
@@ -34,15 +36,19 @@ function Home(props) {
   }
 
   if (props.items == null) {
-    return (<h1>LOADING ITEMS....</h1>)
+    return (
+    <Dimmer active>
+    <Loader inverted content='Loading' />
+    </Dimmer>
+    )
   }
-  console.log('props.items',props.items.body)
+  console.log('props.items', props.items.body)
   let itemList = props.items.body.map(item => {
     return (
       <div className="card" key={item._id}>
         <div className="card-image">
           <img style={{ minHeight: "300px", maxHeight: "300px" }} src={item.img} alt={item.title} />
-          <span className="card-title" style={{color:'black'}}>{item.title}</span>
+          <span className="card-title" style={{ color: 'black' }}>{item.title}</span>
           {isLogin ? <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" onClick={() => { handleClick(item._id) }}><i className="material-icons">add</i></span> :
             <span to="/" className="btn-floating halfway-fab grey" onClick={() => { loginAlert() }}><i className="material-icons">add</i></span>
           }
@@ -77,7 +83,7 @@ function Home(props) {
   );
 }
 function mapStateToProps(state) {
-    console.log('state',state)
+  console.log('state', state)
   return { items: state.items };
 }
 
