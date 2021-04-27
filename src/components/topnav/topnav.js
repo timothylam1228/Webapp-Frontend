@@ -44,7 +44,7 @@ export default function TopNav() {
     return(
       <>
         <Nav className="mr-auto">
-        <Nav.Link as={Link}  to="/editpet">Item </Nav.Link>
+        <Nav.Link as={Link}  to="/admin">Item </Nav.Link>
         <Nav.Link  href="/" onClick={()=>signOut()}>Logout</Nav.Link>
         </Nav>
         </>
@@ -96,13 +96,14 @@ export default function TopNav() {
      }
     }
   }, []);
+
+
   return (
      <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
       <Navbar.Brand  as={Link} to="/">Pet City</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
-   
-        
+  
         {adminIslogin ? <AdminNav /> : <UserNav />}
 
         <LoginForm show={modalLoginShow} onHide={() => handleClose()} />

@@ -14,7 +14,6 @@ import { useHistory } from "react-router"
 export default function AdminloginForm(props) {
   const axios = require('axios').default;
   let history = useHistory()
-
   const [AdminloginForm, setAdminloginForm] = useState({
     username: "",
     password: "",
@@ -34,8 +33,7 @@ export default function AdminloginForm(props) {
           alert("Login success!");
           props.onHide();
           localStorage.setItem('token',response.data.body.token)
-            window.location.reload();
-        } else if (response.data.message == "Account Not Existed") {
+                } else if (response.data.message == "Account Not Existed") {
           alert("This account is not existed")
         } else {
           alert("Wrong password!")
@@ -53,15 +51,16 @@ export default function AdminloginForm(props) {
     setAdminloginForm({ ...AdminloginForm, [name]: value });
   }
 
+
+
   return (
-
     // my app code
-
     <Modal
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      style={{ width:'100%', maxHeight:'100%', background:'none'}}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -92,7 +91,7 @@ export default function AdminloginForm(props) {
               onChange={(e) => handleChange(e)}
             />
           </Form.Group>
-          <Button block size="lg" disabled={!validationStatus} onClick={() => handleSubmit()} >
+          <Button block size="sm" disabled={!validationStatus} onClick={() => handleSubmit()} >
             Login
         </Button>
         </Form>

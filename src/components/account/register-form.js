@@ -62,7 +62,7 @@ export default function RegisterForm(props) {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      style={{maxHeight:"100%", background:'none'}}
+      style={{width:'100%', maxHeight:'100%', background:'none'}}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">

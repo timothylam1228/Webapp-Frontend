@@ -16,6 +16,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/cart" component={Cart} />
           <Route path="/admin" component={AdminPage}/>
+          
         </Switch>
       </div>
     </BrowserRouter>

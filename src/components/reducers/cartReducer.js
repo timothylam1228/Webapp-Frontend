@@ -12,12 +12,6 @@ const axios = require('axios').default;
 
 const initState2 = {
     items: [
-        { id: 1, title: 'Money 7', desc: "Animal", price: 9999910, img: Item1 },
-        { id: 2, title: 'Money 7', desc: "Animal2", price: 80, img: Item2 },
-        { id: 3, title: 'Money 7', desc: "Animal3", price: 120, img: Item3 },
-        { id: 4, title: 'Money 7', desc: "Animal4", price: 260, img: Item4 },
-        { id: 5, title: 'Money 7', desc: "Animal5", price: 160, img: Item5 },
-        { id: 6, title: 'Money 7', desc: "Animal6", price: 90, img: Item6 }
     ],
     addedItems: [],
     total: 0

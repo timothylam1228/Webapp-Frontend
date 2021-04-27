@@ -34,27 +34,3 @@ export const getItems=(id)=>{
         id
     }
 }
-// const fetchPostsSuccess = items => ({
-//     type: FETCH_POSTS_SUCCESS,
-//     payload: { items }
-// })
-
-// export const fetchPosts =  () => {
-//     return async dispatch => {
-//         try {
-//             let item = await axios.get('http://localhost:3000/dev/get_item')
-//             item.data.addedItems = [];
-//             item.data.total =  0;
-//             let itemlist = {
-//                 items : item.data,
-//                 addedItems: [],
-//                 total: 0
-//             }
-//             console.log('post.data',itemlist)
-//             dispatch(fetchPostsSuccess(itemlist)) //store first five posts
-//         }
-//         catch(e){
-//             console.log(e)
-//         }
-//     }
-// }

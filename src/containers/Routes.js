@@ -10,6 +10,7 @@ function Routes() {
                 <Route exact path='/home' exact component={Home}>
                 </Route>
                 <Route path='/register' exact component={Register}/>
+                
             </Switch>
         </Router>
     );
