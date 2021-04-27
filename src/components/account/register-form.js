@@ -7,8 +7,6 @@ import Button from 'react-bootstrap/Button';
 
 export default function RegisterForm(props) {
   const axios = require('axios').default;
-
-
   const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
   const [regForm, setregForm] = useState({
     name: "",
@@ -38,6 +36,8 @@ export default function RegisterForm(props) {
       .then(function (response) {
         if (response.data.message === "Registered") {
           alert("Registration success!")
+          window.location.reload()
+
         } else if (response.data.message === "Used") {
           alert("This account has been used!")
         }

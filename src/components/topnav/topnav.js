@@ -45,6 +45,8 @@ export default function TopNav() {
       <>
         <Nav className="mr-auto">
         <Nav.Link as={Link}  to="/admin">Item </Nav.Link>
+        </Nav>
+        <Nav className="ml-auto">
         <Nav.Link  href="/" onClick={()=>signOut()}>Logout</Nav.Link>
         </Nav>
         </>

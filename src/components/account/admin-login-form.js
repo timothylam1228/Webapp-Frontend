@@ -33,6 +33,7 @@ export default function AdminloginForm(props) {
           alert("Login success!");
           props.onHide();
           localStorage.setItem('token',response.data.body.token)
+          window.location.reload()
                 } else if (response.data.message == "Account Not Existed") {
           alert("This account is not existed")
         } else {

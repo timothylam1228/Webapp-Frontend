@@ -1,11 +1,4 @@
-import Item1 from '../../assets/items/images/item1.png'
-import Item2 from '../../assets/items/images/item2.png'
-import Item3 from '../../assets/items/images/item3.png'
-import Item4 from '../../assets/items/images/item4.png'
-import Item5 from '../../assets/items/images/item5.png'
-import Item6 from '../../assets/items/images/item6.png'
 import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING,GET_ITEM ,FETCH_POSTS_SUCCESS} from '../actions/action-types/cart-actions'
-import { useEffect, useState } from 'react';
 
 
 const axios = require('axios').default;

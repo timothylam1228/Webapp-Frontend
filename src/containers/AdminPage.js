@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import jwt_decode from "jwt-decode";
-import { Button, TextField, InputLabel, FormControl, OutlinedInput, InputAdornment } from '@material-ui/core';
+import { Button, TextField, FormControl,InputLabel,Input,InputAdornment } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 
@@ -15,21 +15,27 @@ const useStyles = makeStyles((theme) => ({
     button: {
         margin: theme.spacing(1),
     },
+    row: {
+        '& .MuiTextField-row': {
+            margin: theme.spacing(1),
+            width: '25ch',
+        },
+    },
+    margin: {
+        margin: theme.spacing(1),
+      },
 }));
 
 function AdminPage(props) {
     const axios = require('axios').default;
-
-
     const classes = useStyles();
-
-    const [isLogin, setIsLogin] = React.useState(false);
+    const [itemList, setItemList] = React.useState(null);
     const [adminIslogin, setAdminIsLogin] = React.useState("");
     const [values, setValues] = React.useState({
         title: '',
         price: '',
-        imgUrl: '',
-        desc : ''
+        img: '',
+        desc: ''
     });
 
     useEffect(() => {
@@ -42,37 +48,70 @@ function AdminPage(props) {
         }
     }, []);
 
+    useEffect(() => {
+        axios.get('http://localhost:3000/dev/get_item')
+            .then((response) => {
+                console.log(response.data.body)
+                setItemList(response.data.body)
+            })
+    }, []);
+
     const handleChange = (e) => {
         console.log(e.target)
         const value = e.target.value;
         const name = e.target.name;
-
+        console.log(values.title, values.price, values.img, values.desc)
+        console.log(itemList)
         setValues({ ...values, [name]: value });
     };
+
     const addClicked = () => {
-        if(values.imgUrl && values.price && values.title && values.desc){
+        if (values.img && values.price && values.title && values.desc) {
             axios.post('http://localhost:3000/dev/add_item', {
                 title: values.title,
                 price: values.price,
-                imgUrl: values.imgUrl,
-                desc:values.desc
-              })
+                img: values.img,
+                desc: values.desc,
+            })
                 .then(function (response) {
-                  if (response.data.message === "Registered") {
-                    alert("Registration success!")
-                  } else if (response.data.message === "Used") {
-                    alert("This account has been used!")
-                  }
-          
-                  console.log(response);
+                    if (response.data.message === "added") {
+                        alert("Added success!")
+                        setValues({
+                            title: '',
+                            price: '',
+                            img: '',
+                            desc: ''
+                        })
+                        window.location.reload()
+
+                    } else {
+                        alert("add fail")
+                    }
+                    console.log(response);
                 })
                 .catch(function (error) {
-                  console.log(error);
+                    console.log(error);
                 });
-        }else{
+        } else {
             alert('Missing Field');
         }
+    }
 
+    const editClicked = (e) => {
+        console.log(e)
+    }
+    const editChanged = (e) => {
+        let obj = {}
+        console.log(itemList);
+  
+        // setItemList({
+        //     [e.target.id]:{
+        //         desc: "Cat Food",
+        //         img: "https://images-na.ssl-images-amazon.com/images/I/81asWIyOp%2BL._AC_SL1500_.jpg",
+        //         price: 20,
+        //         title: "Cat Food",
+        //     }
+        // })
     }
 
     return (
@@ -90,7 +129,7 @@ function AdminPage(props) {
                                 name="title"
                                 value={values.title}
                                 onChange={(e) => handleChange(e)}
-                                />
+                            />
                             <TextField
                                 id="standard-textarea"
                                 placeholder="Price"
@@ -106,13 +145,11 @@ function AdminPage(props) {
                             <TextField
                                 id="standard-textarea"
                                 label="ImageUrl"
-                                name="imgUrl"
+                                name="img"
                                 placeholder="ImageUrl"
-                                value={values.imgUrl}
-
+                                value={values.img}
                                 multiline
                                 onChange={handleChange}
-
                             />
                             <TextField
                                 id="standard-textarea"
@@ -129,7 +166,7 @@ function AdminPage(props) {
                                 color="primary"
                                 className={classes.button}
                                 endIcon={<Icon>send</Icon>}
-                                onClick={()=>{addClicked()}}
+                                onClick={() => { addClicked() }}
                             >
                                 add
                              </Button>
@@ -139,6 +176,31 @@ function AdminPage(props) {
 
 
                     </div>
+                    <h1>Edit items</h1>
+
+                    {itemList ? <>
+                        {itemList.map(function (object, i) {
+                            return <div className={classes.root} key={i}>
+                                <TextField id="title" label="title" name="title" onChange={(e)=>{editChanged(e)}} multiline value={object.title} />
+                                <TextField id="price" label="price" name="price" multiline  value={object.price} />
+                                <TextField id="imgUrl" label="imgUrl" name="img" multiline value={object.img} />
+                                <TextField id="Description" label="Description" name="desc" multiline  value={object.desc} />
+                                <Button
+                                variant="contained"
+                                color="primary"
+                                className={classes.button}
+                                endIcon={<Icon>send</Icon>}
+                                onClick={(e) => { editClicked(e) }}>
+                                Edit
+                             </Button>
+                            </div>
+                                ;
+                        })}
+
+                    </>
+                        :
+                        <>no</>}
+
                 </>
 
 
