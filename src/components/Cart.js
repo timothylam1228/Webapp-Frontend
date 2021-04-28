@@ -31,8 +31,8 @@ function Cart(props) {
     const handleSubtractQuantity = (id) => {
         props.subtractQuantity(id);
     }
-    
-    console.log('length',props)
+
+    console.log('length', props)
     let addedItems = props.items ?
         (
             props.items.map(item => {
@@ -73,8 +73,8 @@ function Cart(props) {
                     {addedItems}
                 </ul>
             </div>
-    
-    <Recipe />   
+
+            <Recipe />
         </div>
     )
 }

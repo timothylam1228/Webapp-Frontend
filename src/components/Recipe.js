@@ -2,6 +2,7 @@ import React, { Component, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 //import { addShipping } from './actions/cartActions'
 import { loadStripe } from '@stripe/stripe-js';
+import StripeContainer from '../stripe/StripeContainer'
 
 const stripePromise = loadStripe('pk_live_51IeNf0KCNLyTjKjF1y4LFA9L3pu9v5fYfKCdtKESjGar2AseIJdxY3TCI5shVUSdmVpG49BKeT7dTUcLuSi3NeoW00a5Y4y33P');
 
@@ -18,12 +19,11 @@ function Recipe(props) {
 
     const handleClick = async (event) => {
         // Get Stripe.js instance
-        const stripe = await stripePromise;
-
+        // const stripe = await stripePromise;
         // Call your backend to create the Checkout Session
         // const response = await fetch('/dev/create-checkout-session', { method: 'POST' });
-        axios.post('http://localhost:3000/dev/create_checkout_session')
-            .then(function (response) { console.log(response) });
+        // axios.post('http://localhost:3000/dev/create_checkout_session')
+        //     .then(function (response) { console.log(response) });
 
         // const session = await response.json();
 
@@ -45,7 +45,9 @@ function Recipe(props) {
                 <li className="collection-item"><b>Total: {props.total} $</b></li>
             </div>
             <div className="checkout">
-                <button className="waves-effect waves-light btn" onClick={() => { handleClick() }}>Checkout</button>
+                {/* <button className="waves-effect waves-light btn" onClick={() => { handleClick() }}>Checkout</button> */}
+                <StripeContainer />
+
             </div>
         </div>
     )
