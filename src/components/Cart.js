@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { removeItem, addQuantity, subtractQuantity } from './actions/cartActions'
@@ -73,7 +73,7 @@ function Cart(props) {
                     {addedItems}
                 </ul>
             </div>
-    
+    <br /><br /><br />
     <Recipe />   
         </div>
     )

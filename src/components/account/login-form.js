@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
-import { Redirect } from "react-router-dom";
-import { useHistory } from "react-router"
 import jwt_decode from "jwt-decode";
 
 // Firebase App (the core Firebase SDK) is always required and
@@ -15,9 +13,6 @@ import jwt_decode from "jwt-decode";
 
 export default function LoginForm(props) {
   const axios = require('axios').default;
-  const bcrypt = require('bcryptjs');
-  const [user, setUser] = useState();
-  let history = useHistory()
 
   const [loginForm, setloginForm] = useState({
     email: "",
@@ -43,7 +38,7 @@ export default function LoginForm(props) {
       password: loginForm.password
     })
       .then(function (response) {
-        if (response.data.message == "Sucess") {
+        if (response.data.message === "Sucess") {
           alert("Login success!");
           props.onHide();
           console.log(response.data.body)
@@ -53,7 +48,7 @@ export default function LoginForm(props) {
           localStorage.setItem('token', response.data.body.token)
           window.location.reload();
           // return <Redirect to='/home'/>
-        } else if (response.data.message == "Account Not Existed") {
+        } else if (response.data.message === "Account Not Existed") {
           alert("This account is not existed")
         } else {
           alert("Wrong password!")

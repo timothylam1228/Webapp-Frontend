@@ -1,14 +1,5 @@
-import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING,GET_ITEM ,FETCH_POSTS_SUCCESS} from '../actions/action-types/cart-actions'
+import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING ,FETCH_POSTS_SUCCESS} from '../actions/action-types/cart-actions'
 
-
-const axios = require('axios').default;
-
-const initState2 = {
-    items: [
-    ],
-    addedItems: [],
-    total: 0
-}
 
 const cartReducer = (state = [] , action ) => {
     console.log('state',state);
