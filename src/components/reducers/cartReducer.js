@@ -1,6 +1,5 @@
 import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING ,FETCH_POSTS_SUCCESS} from '../actions/action-types/cart-actions'
 
-
 const cartReducer = (state = [] , action ) => {
     console.log('state',state);
     if(action.type === FETCH_POSTS_SUCCESS){
