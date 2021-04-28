@@ -16,7 +16,7 @@ const store = createStore(cartReducer, composeEnhancers(
     applyMiddleware(thunk)
 ));
 
-console.log('store',store.getState())
+console.log('store', store.getState())
 
 store.dispatch(fetchPosts())
 

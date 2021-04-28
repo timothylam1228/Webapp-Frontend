@@ -7,7 +7,7 @@ const cartReducer = (state = [] , action ) => {
         return action.payload.body
     }
     if (action.type === ADD_TO_CART) {
-        console.log('load state',state.body);
+        console.log('load state', state.body);
         let addedItem = state.items.body.find(item => item._id === action.id)
         //check if the action id exists in the addedItems
         let existed_item = state.addedItems.find(item => action.id === item._id)
@@ -45,7 +45,7 @@ const cartReducer = (state = [] , action ) => {
     }
     //INSIDE CART COMPONENT
     if (action.type === ADD_QUANTITY) {
-        console.log('state',state);
+        console.log('state', state);
         let addedItem = state.items.body.find(item => item._id === action.id)
         addedItem.quantity += 1
         let newTotal = state.total + addedItem.price
@@ -55,7 +55,7 @@ const cartReducer = (state = [] , action ) => {
         }
     }
     if (action.type === SUB_QUANTITY) {
-        console.log('action',action.id)
+        console.log('action', action.id)
         let addedItem = state.items.body.find(item => item._id === action.id)
 
         //if the qt == 0 then it should be removed
@@ -86,9 +86,9 @@ const cartReducer = (state = [] , action ) => {
     }
 
     else {
-     
+
         return state
     }
 
 }
-export default cartReducer;
+export default cartReducer
