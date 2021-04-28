@@ -19,7 +19,6 @@ const cartReducer = (state = [] , action ) => {
         }
         else {
             addedItem.quantity = 1;
-            //calculating the total
             let newTotal = state.total + addedItem.price
             console.log("newTotal", addedItem);
             return {

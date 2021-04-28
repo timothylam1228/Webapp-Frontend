@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 import { Button, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
-
+import { Dimmer, Loader } from 'semantic-ui-react'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -93,13 +93,19 @@ function AdminPage(props) {
         }
     }
 
-    const editClicked = (e) => {
-      
+    const editClicked = (e, i) => {
+   
+            console.log('e.target',e , i)
+            const id = i.i;
+            
+            const thisid = itemList[id]
+            console.log('thisid',thisid)
             axios.post('http://localhost:3000/dev/remove_item', {
-                _id : e.target.id
+                _id : thisid
             })
                 .then(function (response) {
                     console.log(response);
+                    window.location.reload();
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -177,18 +183,19 @@ function AdminPage(props) {
                     {itemList ? <>
                         {itemList.map(function (object, i) {
                             return <div className={classes.root} key={i}>
-                                <TextField id="title" label="title" name="title" onChange={(e)=>{editChanged(e)}} multiline value={object.title} />
-                                <TextField id="price" label="price" name="price" multiline  value={object.price} />
-                                <TextField id="imgUrl" label="imgUrl" name="img" multiline value={object.img} />
-                                <TextField id="Description" label="Description" name="desc" multiline  value={object.desc} />
+                                
+                                <TextField id="title" label="title" name="title"  multiline disabled='true' value={object.title} />
+                                <TextField id="price" label="price" name="price" multiline  disabled='true' value={object.price} />
+                                <TextField id="imgUrl" label="imgUrl" name="img" multiline disabled='true' value={object.img} />
+                                <TextField id="Description" label="Description" name="desc" disabled='true' multiline  value={object.desc} />
                                 <Button
                                 variant="contained"
                                 color="primary"
-
+                                name = {i}
                                 className={classes.button}
                                 endIcon={<Icon>send</Icon>}
-                                onClick={(e) => { editClicked(e) }}>
-                                Edit
+                                onClick={(e) => { editClicked(e, {i}) }}>
+                                Remove
                              </Button>
                             </div>
                                 ;
@@ -196,7 +203,9 @@ function AdminPage(props) {
 
                     </>
                         :
-                        <>no</>}
+                        <Dimmer active>
+                        <Loader inverted content='Loading' />
+                        </Dimmer>}
 
                 </>
 
