@@ -1,18 +1,8 @@
-import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING, GET_ITEM, FETCH_POSTS_SUCCESS } from '../actions/action-types/cart-actions'
+import { ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING ,FETCH_POSTS_SUCCESS} from '../actions/action-types/cart-actions'
 
-
-const axios = require('axios').default;
-
-const initState2 = {
-    items: [
-    ],
-    addedItems: [],
-    total: 0
-}
-
-const cartReducer = (state = [], action) => {
-    console.log('state', state);
-    if (action.type === FETCH_POSTS_SUCCESS) {
+const cartReducer = (state = [] , action ) => {
+    console.log('state',state);
+    if(action.type === FETCH_POSTS_SUCCESS){
         return action.payload.body
     }
     if (action.type === ADD_TO_CART) {
@@ -29,7 +19,6 @@ const cartReducer = (state = [], action) => {
         }
         else {
             addedItem.quantity = 1;
-            //calculating the total
             let newTotal = state.total + addedItem.price
             console.log("newTotal", addedItem);
             return {

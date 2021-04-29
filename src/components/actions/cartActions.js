@@ -1,5 +1,4 @@
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING,GET_ITEM,FETCH_POSTS_SUCCESS} from '../actions/action-types/cart-actions'
-import axios from 'axios'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,GET_ITEM} from '../actions/action-types/cart-actions'
 
 export const addToCart= (id)=>{
     return{

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import jwt_decode from "jwt-decode";
-import { Button, TextField, FormControl,InputLabel,Input,InputAdornment } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
-
+import { Dimmer, Loader } from 'semantic-ui-react'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
 function AdminPage(props) {
     const axios = require('axios').default;
     const classes = useStyles();
-    const [itemList, setItemList] = React.useState(null);
-    const [adminIslogin, setAdminIsLogin] = React.useState("");
-    const [values, setValues] = React.useState({
+    const [itemList, setItemList] = useState(null);
+    const [adminIslogin, setAdminIsLogin] = useState("");
+    const [values, setValues] = useState({
         title: '',
         price: '',
         img: '',
@@ -42,7 +42,7 @@ function AdminPage(props) {
         const loggedInUser = localStorage.getItem('token');
         if (loggedInUser) {
             var decoded = jwt_decode(loggedInUser);
-            if (decoded.type == "admin") {
+            if (decoded.type === "admin") {
                 setAdminIsLogin(true);
             }
         }
@@ -51,17 +51,13 @@ function AdminPage(props) {
     useEffect(() => {
         axios.get('http://localhost:3000/dev/get_item')
             .then((response) => {
-                console.log(response.data.body)
                 setItemList(response.data.body)
             })
     }, []);
 
     const handleChange = (e) => {
-        console.log(e.target)
         const value = e.target.value;
         const name = e.target.name;
-        console.log(values.title, values.price, values.img, values.desc)
-        console.log(itemList)
         setValues({ ...values, [name]: value });
     };
 
@@ -97,21 +93,27 @@ function AdminPage(props) {
         }
     }
 
-    const editClicked = (e) => {
-        console.log(e)
+    const editClicked = (e, i) => {
+   
+            console.log('e.target',e , i)
+            const id = i.i;
+            
+            const thisid = itemList[id]
+            console.log('thisid',thisid)
+            axios.post('http://localhost:3000/dev/remove_item', {
+                _id : thisid
+            })
+                .then(function (response) {
+                    console.log(response);
+                    window.location.reload();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        
     }
     const editChanged = (e) => {
-        let obj = {}
-        console.log(itemList);
-  
-        // setItemList({
-        //     [e.target.id]:{
-        //         desc: "Cat Food",
-        //         img: "https://images-na.ssl-images-amazon.com/images/I/81asWIyOp%2BL._AC_SL1500_.jpg",
-        //         price: 20,
-        //         title: "Cat Food",
-        //     }
-        // })
+
     }
 
     return (
@@ -181,17 +183,19 @@ function AdminPage(props) {
                     {itemList ? <>
                         {itemList.map(function (object, i) {
                             return <div className={classes.root} key={i}>
-                                <TextField id="title" label="title" name="title" onChange={(e)=>{editChanged(e)}} multiline value={object.title} />
-                                <TextField id="price" label="price" name="price" multiline  value={object.price} />
-                                <TextField id="imgUrl" label="imgUrl" name="img" multiline value={object.img} />
-                                <TextField id="Description" label="Description" name="desc" multiline  value={object.desc} />
+                                
+                                <TextField id="title" label="title" name="title"  multiline disabled='true' value={object.title} />
+                                <TextField id="price" label="price" name="price" multiline  disabled='true' value={object.price} />
+                                <TextField id="imgUrl" label="imgUrl" name="img" multiline disabled='true' value={object.img} />
+                                <TextField id="Description" label="Description" name="desc" disabled='true' multiline  value={object.desc} />
                                 <Button
                                 variant="contained"
                                 color="primary"
+                                name = {i}
                                 className={classes.button}
                                 endIcon={<Icon>send</Icon>}
-                                onClick={(e) => { editClicked(e) }}>
-                                Edit
+                                onClick={(e) => { editClicked(e, {i}) }}>
+                                Remove
                              </Button>
                             </div>
                                 ;
@@ -199,7 +203,9 @@ function AdminPage(props) {
 
                     </>
                         :
-                        <>no</>}
+                        <Dimmer active>
+                        <Loader inverted content='Loading' />
+                        </Dimmer>}
 
                 </>
 

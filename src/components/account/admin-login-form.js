@@ -1,9 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
-import { useHistory } from "react-router"
 
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
@@ -13,7 +12,6 @@ import { useHistory } from "react-router"
 
 export default function AdminloginForm(props) {
   const axios = require('axios').default;
-  let history = useHistory()
   const [AdminloginForm, setAdminloginForm] = useState({
     username: "",
     password: "",
@@ -29,12 +27,12 @@ export default function AdminloginForm(props) {
       password: AdminloginForm.password
     })
       .then(function (response) {
-        if (response.data.message == "Sucess") {
+        if (response.data.message === "Sucess") {
           alert("Login success!");
           props.onHide();
           localStorage.setItem('token',response.data.body.token)
           window.location.reload()
-                } else if (response.data.message == "Account Not Existed") {
+                } else if (response.data.message === "Account Not Existed") {
           alert("This account is not existed")
         } else {
           alert("Wrong password!")

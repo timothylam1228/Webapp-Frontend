@@ -1,4 +1,4 @@
-import React, { Suspense, Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { addToCart } from '../components/actions/cartActions';
 import 'materialize-css/dist/css/materialize.min.css';
@@ -7,19 +7,17 @@ import 'material-icons/iconfont/material-icons.css'
 import jwt_decode from "jwt-decode";
 import Background from '../assets/background.png'
 import 'semantic-ui-css/semantic.min.css'
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
+import { Dimmer, Loader } from 'semantic-ui-react'
 
 function Home(props) {
   console.log(props.items)
-  const [isLogin, setIsLogin] = React.useState(false);
-  const [items, setItems] = useState();
-  const [show, setShow] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("token");
     if (loggedInUser) {
       var decoded = jwt_decode(loggedInUser);
-      if (decoded.type == "user") {
+      if (decoded.type === "user") {
         console.log(decoded)
         setIsLogin(true);
       }
@@ -65,7 +63,7 @@ function Home(props) {
   return (
     <>
       <div style={{ backgroundImage: `url(${Background})`, backgroundRepeat: 'Repeat', width: '100%', height: '100vh', color: 'black', justifyContent: 'center', display: 'flex', alignItems: 'center' }} >
-        <div style={{ fontSize: '60px', backgroundColor: 'white' }}>Welcome to Pet City</div>
+        <div style={{ fontSize: '60px', backgroundColor: 'white', lineHeight :'100%'}}>Welcome to Pet City</div>
       </div>
       <div id="Food" className="Food" style={{ background: "linear-gradient(white, #D3E8EC)", width: '100%', height: '30vh', justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
         <div style={{ fontSize: '60px' }}> Pet Food </div>
@@ -91,11 +89,7 @@ function mapDispatchToProps(dispatch) {
   return { addToCart: (id) => { dispatch(addToCart(id)) } }
 }
 
-const styles = {
-  fullHeightCard: {
-    height: "100%",
-  },
-}
+
 
 
 export default (connect(mapStateToProps, mapDispatchToProps)(Home))
