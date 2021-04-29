@@ -37,9 +37,9 @@ function Home(props) {
 
   if (props.items == null) {
     return (
-    <Dimmer active>
-    <Loader inverted content='Loading' />
-    </Dimmer>
+      <Dimmer active>
+        <Loader inverted content='Loading' />
+      </Dimmer>
     )
   }
   console.log('props.items', props.items.body)

@@ -6,7 +6,6 @@ import Recipe from './Recipe'
 
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         items: state.addedItems,
         total: state.total
@@ -20,6 +19,7 @@ function mapDispatchToProps(dispatch) {
     }
 }
 function Cart(props) {
+    const axios = require('axios').default;
 
     const handleRemove = (id) => {
         props.removeItem(id);
@@ -31,7 +31,32 @@ function Cart(props) {
     const handleSubtractQuantity = (id) => {
         props.subtractQuantity(id);
     }
+    const handleClick = async (event) => {
+        console.log("props now:", props.items)
+        var i;
+        for (i = 0; i < props.items.length; i++) {
+            axios.post('http://localhost:3000/dev/payment', ({
+                title: props.items[i].title,
+                price: props.items[i].price,
+                quantity: props.items[i].quantity,
+                method: "card"
+            }))
+                .then(function (response) {
+                    if (response.data.message == "sucess") {
+                        // alert("payment success!");
+                        window.location = "/"
+                    } else {
+                        alert("payment failed")
+                        window.location = "/cart"
 
+                    }
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    };
     console.log('length', props)
     let addedItems = props.items ?
         (
@@ -75,6 +100,8 @@ function Cart(props) {
             </div>
 
             <Recipe />
+            <button className="waves-effect waves-light btn" onClick={() => { handleClick() }}>Checkout</button>
+
         </div>
     )
 }

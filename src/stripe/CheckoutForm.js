@@ -4,6 +4,8 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 export const CheckoutForm = () => {
     const stripe = useStripe();
     const elements = useElements();
+    const axios = require('axios').default;
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -43,7 +45,6 @@ export const CheckoutForm = () => {
     return (
         <form onSubmit={handleSubmit} style={{ maxWidth: 400 }}>
             <CardElement />
-            <button className="waves-effect waves-light btn" onClick={() => { handleClick() }}>Checkout</button>
         </form>
     );
 };
