@@ -50,7 +50,6 @@ function Home(props) {
           {isLogin ? <span to="/" className="btn-floating halfway-fab waves-effect waves-light red" onClick={() => { handleClick(item._id) }}><i className="material-icons">add</i></span> :
             <span to="/" className="btn-floating halfway-fab grey" onClick={() => { loginAlert() }}><i className="material-icons">add</i></span>
           }
-
         </div >
         <div className="card-content">
           <p>{item.desc}</p>
